@@ -10,11 +10,11 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import pandas as pd
 
 # 列出系統中所有可用的字型
-# available_fonts = [f.name for f in fm.fontManager.ttflist]
-# chinese_fonts = [f for f in available_fonts if any(word in f.lower() for word in ['han', 'ming', 'song', 'kai', 'hei', 'yuan', 'gothic', 'simsum', 'noto', 'cjk'])]
-# print(chinese_fonts)  # 查看系統中有哪些可能支援中文的字型
+available_fonts = [f.name for f in fm.fontManager.ttflist]
+chinese_fonts = [f for f in available_fonts if any(word in f.lower() for word in ['han', 'ming', 'song', 'kai', 'hei', 'yuan', 'gothic', 'simsum', 'noto', 'cjk'])]
+print(chinese_fonts)  # 查看系統中有哪些可能支援中文的字型
 # 設定支持中文的字型
-mpl.rcParams['font.family'] = 'MS Gothic'  # 或其他支援中文的字型
+mpl.rcParams["font.family"] = "Microsoft YaHei"  # 或其他支援中文的字型
 from tkcalendar import DateEntry  # 引入日期選擇器
 
 class ExpenseTracker:
