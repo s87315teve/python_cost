@@ -1,0 +1,91 @@
+/* 全局樣式 */
+body {
+    font-family: "Microsoft JhengHei", "微軟正黑體", "PingFang TC", sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* 卡片樣式 */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* 表格樣式 */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+/* 按鈕樣式 */
+.btn {
+    border-radius: 0.25rem;
+}
+
+/* 日期選擇器樣式 */
+.flatpickr-calendar {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+/* 圖表容器 */
+canvas {
+    width: 100% !important;
+    height: auto;
+    max-height: 300px;
+}
+
+/* 導航欄 */
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* 數據摘要卡片 */
+.card .bg-light {
+    transition: all 0.3s ease;
+}
+
+.card .bg-light:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* 表單元素 */
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #86b7fe;
+}
+
+/* 自訂日期範圍輸入框 */
+#filter-start-date,
+#filter-end-date,
+#stats-start-date,
+#stats-end-date,
+#export-start-date,
+#export-end-date {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+/* 適應不同螢幕大小 */
+@media (max-width: 767px) {
+    .input-group {
+        width: 100% !important;
+    }
+    
+    .card-header {
+        flex-direction: column;
+    }
+    
+    .d-flex {
+        margin-top: 10px;
+    }
+}

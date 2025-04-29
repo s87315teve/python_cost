@@ -1,0 +1,15 @@
+expense-tracker/ 
+├── app.py               # Flask 主程式 
+├── config.py            # 配置檔 
+├── static/              # 靜態檔案 
+│   ├── css/             # CSS 樣式 
+│   │   └── style.css 
+│   └── js/              # JavaScript 檔案 
+│         ├── chart.js     # 圖表相關 
+│         └── main.js      # 主要 JS 功能 
+├── templates/           # HTML 模板 
+│   ├── base.html        # 基礎模板 
+│   ├── index.html       # 主頁 
+│   ├── stats.html       # 統計分析頁 
+│   └── settings.html    # 設定頁 
+└── requirements.txt     # 相依套件

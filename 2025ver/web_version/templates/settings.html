@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}記帳軟體 - 設定{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>支出類別管理</h5>
+            </div>
+            <div class="card-body">
+                <form id="add-category-form" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" id="new-category" class="form-control" placeholder="新增類別名稱">
+                        <button type="submit" class="btn btn-primary">新增</button>
+                    </div>
+                </form>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>類別名稱</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categories-table">
+                            {% for category in categories %}
+                            <tr>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger delete-category" data-id="{{ category.id }}">刪除</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>資料匯出</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="export-start-date" class="form-label">開始日期</label>
+                    <input type="text" id="export-start-date" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="export-end-date" class="form-label">結束日期</label>
+                    <input type="text" id="export-end-date" class="form-control">
+                </div>
+                <button id="export-csv-btn" class="btn btn-success">匯出 CSV</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 刪除類別確認 Modal -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確認刪除</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                確定要刪除這個類別嗎？如果有記錄使用此類別，將無法刪除。
+                <input type="hidden" id="delete-category-id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-category-btn">刪除</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

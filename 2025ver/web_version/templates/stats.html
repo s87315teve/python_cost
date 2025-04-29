@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}記帳軟體 - 統計分析{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>自定義統計區間</h4>
+                <div class="d-flex">
+                    <div class="input-group">
+                        <input type="text" id="stats-start-date" class="form-control" placeholder="開始日期">
+                        <span class="input-group-text">至</span>
+                        <input type="text" id="stats-end-date" class="form-control" placeholder="結束日期">
+                        <button id="stats-filter-btn" class="btn btn-primary">分析</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5>各類別支出佔比</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="categoryChart"></canvas>
+                <div id="no-category-data" class="text-center p-4 d-none">
+                    <p class="text-muted">沒有足夠的數據生成圖表</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5>月度支出統計</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="monthlyChart"></canvas>
+                <div id="no-monthly-data" class="text-center p-4 d-none">
+                    <p class="text-muted">沒有足夠的數據生成圖表</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>支出趨勢圖</h5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary trend-period" data-days="7">近一週</button>
+                    <button type="button" class="btn btn-outline-secondary trend-period active" data-days="30">近一個月</button>
+                    <button type="button" class="btn btn-outline-secondary trend-period" data-days="90">近三個月</button>
+                    <button type="button" class="btn btn-outline-secondary trend-period" data-days="365">近一年</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="trendChart"></canvas>
+                <div id="no-trend-data" class="text-center p-4 d-none">
+                    <p class="text-muted">沒有足夠的數據生成圖表</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>統計摘要</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">總支出</h5>
+                                <h3 id="total-expense">--</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">平均每日支出</h5>
+                                <h3 id="avg-daily-expense">--</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">最高單筆支出</h5>
+                                <h3 id="max-expense">--</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">消費種類數</h5>
+                                <h3 id="category-count">--</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>圖表操作</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button id="download-charts" class="btn btn-success">
+                            <i class="bi bi-download"></i> 下載所有圖表
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
+{% endblock %}

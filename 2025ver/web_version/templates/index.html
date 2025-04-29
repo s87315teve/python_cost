@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}記帳軟體 - 支出記錄{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>新增支出</h4>
+            </div>
+            <div class="card-body">
+                <form id="expense-form" class="row g-3">
+                    <div class="col-md-2">
+                        <label for="date" class="form-label">日期</label>
+                        <input type="text" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="category" class="form-label">品項</label>
+                        <input type="text" class="form-control" id="category" name="category" list="categoryList" required>
+                        <datalist id="categoryList">
+                            {% for category in categories %}
+                            <option value="{{ category }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="amount" class="form-label">金額</label>
+                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="note" class="form-label">備註</label>
+                        <input type="text" class="form-control" id="note" name="note">
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary mb-3">新增</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>支出記錄</h4>
+                <div class="input-group" style="width: 480px;">
+                    <input type="text" id="filter-start-date" class="form-control" placeholder="開始日期">
+                    <span class="input-group-text">至</span>
+                    <input type="text" id="filter-end-date" class="form-control" placeholder="結束日期">
+                    <button id="filter-btn" class="btn btn-outline-secondary">篩選</button>
+                    <button id="reset-filter-btn" class="btn btn-outline-danger">重設</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>品項</th>
+                                <th>金額</th>
+                                <th>備註</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-table">
+                            <!-- 數據會透過 JavaScript 動態加載 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="no-data-message" class="text-center p-4 d-none">
+                    <p class="text-muted">目前沒有支出記錄</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改支出的 Modal -->
+<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">修改支出</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-expense-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="mb-3">
+                        <label for="edit-date" class="form-label">日期</label>
+                        <input type="text" class="form-control" id="edit-date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-category" class="form-label">品項</label>
+                        <input type="text" class="form-control" id="edit-category" list="categoryList" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-amount" class="form-label">金額</label>
+                        <input type="number" class="form-control" id="edit-amount" step="0.01" min="0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-note" class="form-label">備註</label>
+                        <input type="text" class="form-control" id="edit-note">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="save-edit-btn">儲存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 刪除確認 Modal -->
+<div class="modal fade" id="deleteExpenseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確認刪除</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                確定要刪除這筆支出記錄嗎？
+                <input type="hidden" id="delete-id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn">刪除</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
